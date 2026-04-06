@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 
-const resources = await getCollection('resources');
+const allResources = await getCollection('resources');
+const resources = allResources.sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
 ---
 
 <html lang="en">

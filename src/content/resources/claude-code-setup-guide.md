@@ -12,6 +12,7 @@ ctaText: "Get the Free Guide"
 previewDescription: "Step-by-step guide to installing and setting up Claude Code for complete beginners — from Node.js install to your first AI command."
 pages: 5
 type: "guide"
+order: 1
 ---
 
 ## What's Inside

@@ -12,6 +12,7 @@ const resources = defineCollection({
     previewDescription: z.string(),
     pages: z.number(),
     type: z.enum(['guide', 'cheatsheet', 'checklist', 'quick-reference', 'how-to-guide']),
+    order: z.number().optional(),
   }),
 });
 
