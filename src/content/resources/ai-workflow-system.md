@@ -12,7 +12,7 @@ ctaText: "Get the Free Checklist"
 previewDescription: "2-page audit checklist to diagnose why AI tools aren't sticking — and the workflow rebuild method that fixes it."
 pages: 2
 type: "checklist"
-order: 4
+order: 6
 ---
 
 ## What's Inside

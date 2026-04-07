@@ -12,6 +12,7 @@ ctaText: "Get the Free Cheatsheet"
 previewDescription: "A 2-page cheatsheet based on Boris Cherny's real CLAUDE.md workflow — the creator's rule, the 5-section structure, and the beginner setup path."
 pages: 2
 type: "cheatsheet"
+order: 4
 ---
 
 ## What's Inside

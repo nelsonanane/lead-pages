@@ -12,6 +12,7 @@ ctaText: "Get the Free Guide"
 previewDescription: "The exact setup guide for running Claude Skills as a complete beginner — no coding, no technical background required."
 pages: 3
 type: "guide"
+order: 3
 ---
 
 ## What's Inside

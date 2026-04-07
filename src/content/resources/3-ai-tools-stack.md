@@ -12,7 +12,7 @@ ctaText: "Get the Free Cheatsheet"
 previewDescription: "3-page cheatsheet with the BCG-backed 3-tool AI stack for beginners — plus a quick-start checklist."
 pages: 3
 type: "cheatsheet"
-order: 3
+order: 5
 ---
 
 ## What's Inside

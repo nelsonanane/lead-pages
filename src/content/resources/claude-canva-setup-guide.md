@@ -12,7 +12,7 @@ ctaText: "Get the Free Guide"
 previewDescription: "3-page setup guide for the Claude-Canva connector — step-by-step instructions, brand kit setup, and copy-paste prompts."
 pages: 3
 type: "how-to-guide"
-order: 5
+order: 7
 ---
 
 ## What's Inside
