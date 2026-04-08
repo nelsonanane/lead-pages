@@ -2,7 +2,7 @@
 title: "The Clicky Setup Guide"
 headline: "The Free AI Teacher That Sees Your Screen — Set Up in 10 Minutes"
 subtitle: "A 3-page setup guide for Clicky, the open-source Mac app that watches your screen, listens to your questions, and points at the exact thing it's describing."
-pdfUrl: "https://drive.google.com/file/d/1wO86ANIBaD2573JXyVpuhnDyak3UMskI/view?usp=drivesdk"
+pdfUrl: "https://drive.google.com/file/d/1yK5LXyEKGE37543rEmBrdi7P5JLdznNJ/view?usp=drivesdk"
 valueProps:
   - "Step-by-step install from the GitHub Releases page — no coding required"
   - "The exact 3 API keys you need (all have free tiers)"
@@ -10,7 +10,7 @@ valueProps:
   - "1,779 GitHub stars in 24 hours — the fastest-growing AI tool of the week"
 ctaText: "Get the Free Guide"
 previewDescription: "3-page setup guide for Clicky — the free, open-source AI teacher that sees your screen and points at UI elements while it talks to you."
-pages: 3
+pages: 4
 type: "how-to-guide"
 order: 8
 ---
