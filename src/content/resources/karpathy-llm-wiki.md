@@ -11,7 +11,7 @@ valueProps:
 ctaText: "Get the Free Setup Guide"
 previewDescription: "3-page setup guide: how to use Karpathy's LLM Wiki system to turn your content research into a self-maintaining knowledge base using Claude Code."
 pages: 3
-type: "setup-guide"
+type: "guide"
 ---
 
 ## What's Inside
