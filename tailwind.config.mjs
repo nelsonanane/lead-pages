@@ -5,14 +5,16 @@ export default {
     extend: {
       colors: {
         accent: {
-          DEFAULT: '#2563EB',  // Blue — change to your brand color
-          light: '#EFF6FF',
-          dark: '#1D4ED8',
+          DEFAULT: '#15803D',  // Forest green
+          light:   '#F0FDF4',  // Very light green tint
+          dark:    '#166534',  // Deep forest green (hover)
         },
-        dark: '#171717',
+        dark: '#1A1035',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        mono: ['"Courier Prime"', '"Courier New"', 'monospace'],
       },
     },
   },

@@ -17,8 +17,9 @@ const title = "Book an AI Audit — @thenelsonkwesi";
     :root {
       --ink:    #1A1035;
       --bg:     #FAFAF8;
-      --soft:   #F0EAFF;
-      --accent: #7C3AED;
+      --soft:   #F0FDF4;
+      --accent: #15803D;
+      --accent-dark: #166534;
       --rule:   rgba(26, 16, 53, 0.09);
       --muted:  rgba(26, 16, 53, 0.38);
       --serif:  'Playfair Display', Georgia, serif;
@@ -136,7 +137,7 @@ const title = "Book an AI Audit — @thenelsonkwesi";
       white-space: nowrap;
       transition: background 0.2s, transform 0.15s;
     }
-    .btn-primary:hover { background: #6d28d9; transform: translateY(-1px); }
+    .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
 
     .hero-note {
       font-family: var(--mono);
@@ -318,7 +319,7 @@ const title = "Book an AI Audit — @thenelsonkwesi";
       text-decoration: none;
       transition: background 0.2s;
     }
-    .price-btn:hover { background: #6d28d9; }
+    .price-btn:hover { background: var(--accent-dark); }
     .price-footnote {
       font-family: var(--mono);
       font-size: 0.6rem;

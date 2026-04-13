@@ -33,114 +33,356 @@ const badge = `Free ${pages}-Page ${typeLabel}`;
   <title>{title}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    #1A1035;
+      --bg:     #FAFAF8;
+      --accent: #15803D;
+      --accent-dark: #166534;
+      --accent-light: #F0FDF4;
+      --rule:   rgba(26, 16, 53, 0.09);
+      --muted:  rgba(26, 16, 53, 0.38);
+      --serif:  'Playfair Display', Georgia, serif;
+      --mono:   'Courier Prime', 'Courier New', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--serif);
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+
+    /* Nav */
+    nav {
+      border-bottom: 1px solid var(--rule);
+      padding: 18px 0;
+    }
+    nav .wrap {
+      max-width: 1100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-brand {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-link {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--ink); }
+
+    /* Hero */
+    .hero {
+      background: var(--accent-light);
+      border-bottom: 1px solid rgba(21,128,61,0.1);
+      padding: 64px 0 56px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(21,128,61,0.3);
+      padding: 6px 16px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-sub {
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 480px;
+      margin: 0 auto 36px;
+    }
+
+    /* Value props */
+    .props-list { text-align: left; max-width: 400px; margin: 0 auto; }
+    .prop-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 8px 0;
+      border-top: 1px solid rgba(21,128,61,0.1);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .prop-item::before {
+      content: '+';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Form card */
+    .form-wrap { padding: 0 32px 64px; }
+    .form-card {
+      background: white;
+      border: 1px solid var(--rule);
+      padding: 48px;
+      max-width: 520px;
+      margin: -32px auto 0;
+      position: relative;
+    }
+
+    .form-heading {
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .form-sub {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .field input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid rgba(26,16,53,0.15);
+      background: var(--bg);
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .field input:focus { border-color: var(--accent); }
+    .field input::placeholder { color: rgba(26,16,53,0.25); }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 15px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 4px;
+    }
+    .submit-btn:hover { background: var(--accent-dark); }
+
+    .no-spam {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: rgba(26,16,53,0.25);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* Success state */
+    .success-wrap { text-align: center; padding: 16px 0; }
+    .check-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .success-heading { font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; }
+    .success-sub {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: white;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .download-btn:hover { background: var(--accent-dark); }
+
+    /* Prose */
+    .body-content {
+      padding: 64px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .prose-body { font-family: var(--mono); font-size: 0.88rem; line-height: 1.8; color: var(--muted); }
+    .prose-body h2 { font-family: var(--serif); font-size: 1.4rem; font-weight: 700; color: var(--ink); margin: 36px 0 12px; }
+    .prose-body h3 { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; color: var(--ink); margin: 24px 0 8px; }
+    .prose-body p { margin-bottom: 16px; }
+    .prose-body strong { color: var(--ink); font-weight: 700; }
+    .prose-body a { color: var(--accent); text-decoration: none; }
+    .prose-body a:hover { text-decoration: underline; }
+    .prose-body ul { padding-left: 20px; margin-bottom: 16px; }
+    .prose-body li { margin-bottom: 6px; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 24px 0;
+      text-align: center;
+    }
+    footer span {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: rgba(26,16,53,0.22);
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 600px) {
+      .wrap, .form-wrap { padding: 0 20px; }
+      .form-card { padding: 32px 24px; }
+      .hero { padding: 48px 0 40px; }
+    }
+  </style>
 </head>
-<body class="bg-white text-dark font-sans antialiased">
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="wrap" style="max-width: 1100px;">
+      <a href="/" class="nav-brand">@thenelsonkwesi</a>
+      <a href="https://lead-pages-2.vercel.app" class="nav-link">Free Resources</a>
+    </div>
+  </nav>
 
   <!-- Hero -->
-  <section class="bg-gradient-to-b from-accent-light to-white">
-    <div class="max-w-3xl mx-auto px-6 pt-16 pb-12 text-center">
-      <span class="inline-block bg-accent/10 text-accent text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
-        {badge}
-      </span>
-      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 text-dark">
-        {headline}
-      </h1>
-      <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-        {subtitle}
-      </p>
-
-      <!-- Value Props -->
-      <div class="text-left max-w-md mx-auto space-y-3 mb-10">
+  <div class="hero">
+    <div class="wrap">
+      <span class="badge">{badge}</span>
+      <h1>{headline}</h1>
+      <p class="hero-sub">{subtitle}</p>
+      <div class="props-list">
         {valueProps.map((prop) => (
-          <div class="flex items-start gap-3">
-            <span class="text-accent font-bold text-lg mt-0.5">&#10003;</span>
-            <span class="text-gray-700">{prop}</span>
-          </div>
+          <div class="prop-item">{prop}</div>
         ))}
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Form Section -->
-  <section class="max-w-3xl mx-auto px-6 -mt-4">
-    <div id="form-section" class="bg-white border border-gray-200 rounded-2xl shadow-lg p-8 md:p-10">
-      <h2 class="text-2xl font-bold text-center mb-2">Get Instant Access</h2>
-      <p class="text-gray-500 text-center mb-6">{previewDescription}</p>
+  <!-- Form Card -->
+  <div class="form-wrap">
+    <div class="form-card">
+      <div id="form-section">
+        <h2 class="form-heading">Get Instant Access</h2>
+        <p class="form-sub">{previewDescription}</p>
+        <form id="lead-form">
+          <div class="field">
+            <label for="name">First Name</label>
+            <input type="text" id="name" name="name" required placeholder="Your first name" />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="you@example.com" />
+          </div>
+          <button type="submit" class="submit-btn">{ctaText}</button>
+          <p class="no-spam">No spam. Unsubscribe anytime.</p>
+        </form>
+      </div>
 
-      <!-- Lead Form -->
-      <form id="lead-form" class="space-y-4 max-w-sm mx-auto">
-        <div>
-          <label for="name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            required
-            placeholder="Your first name"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent outline-none transition"
-          />
-        </div>
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            placeholder="you@example.com"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent outline-none transition"
-          />
-        </div>
-        <button
-          type="submit"
-          class="w-full bg-accent hover:bg-accent-dark text-white font-semibold py-3.5 px-6 rounded-lg transition-colors text-lg cursor-pointer"
-        >
-          {ctaText}
-        </button>
-        <p class="text-xs text-gray-400 text-center">No spam. Unsubscribe anytime.</p>
-      </form>
-
-      <!-- Success / Resource Reveal (hidden by default) -->
-      <div id="resource-reveal" class="hidden text-center py-6">
-        <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-          <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+      <!-- Success state -->
+      <div id="resource-reveal" class="hidden success-wrap">
+        <div class="check-icon">
+          <svg width="24" height="24" fill="none" stroke="#15803D" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 class="text-2xl font-bold mb-2">Here's your {typeLabel.toLowerCase()}!</h3>
-        <p class="text-gray-500 mb-6">Click below to view or download.</p>
-        <a
-          href={pdfUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-white font-semibold py-3.5 px-8 rounded-lg transition-colors text-lg"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        <h3 class="success-heading">Here's your {typeLabel.toLowerCase()}!</h3>
+        <p class="success-sub">Click below to view or download.</p>
+        <a href={pdfUrl} target="_blank" rel="noopener noreferrer" class="download-btn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          View & Download {typeLabel}
+          View &amp; Download {typeLabel}
         </a>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Sales Copy (from markdown body) -->
-  <section class="max-w-3xl mx-auto px-6 py-16">
-    <div class="prose prose-lg prose-gray max-w-none prose-headings:text-dark prose-h2:text-2xl prose-h3:text-xl prose-a:text-accent prose-strong:text-dark">
+  <!-- Body content -->
+  <div class="body-content">
+    <div class="wrap prose-body">
       <slot />
     </div>
-  </section>
+  </div>
 
   <!-- Footer -->
-  <footer class="border-t border-gray-100 py-8 text-center text-sm text-gray-400">
-    &copy; {new Date().getFullYear()}
+  <footer>
+    <span>&copy; {new Date().getFullYear()} @thenelsonkwesi</span>
   </footer>
 
-  <!-- Form handling script -->
   <script define:vars={{ slug }}>
     const form = document.getElementById('lead-form');
     const reveal = document.getElementById('resource-reveal');
+    const formSection = document.getElementById('form-section');
 
     async function captureLead(name, email) {
       const res = await fetch('/api/capture-lead', {
@@ -152,11 +394,10 @@ const badge = `Free ${pages}-Page ${typeLabel}`;
     }
 
     function showResource() {
-      form.classList.add('hidden');
+      formSection.classList.add('hidden');
       reveal.classList.remove('hidden');
     }
 
-    // Check for URL parameters (name/email pre-filled from DM automation)
     const params = new URLSearchParams(window.location.search);
     const mcName = params.get('name') || params.get('first_name') || '';
     const mcEmail = params.get('email') || '';
