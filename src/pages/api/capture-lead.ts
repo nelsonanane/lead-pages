@@ -24,7 +24,7 @@ async function subscribeToBeehiiv(
         reactivate_existing: true,
         send_welcome_email: true,
         custom_fields: [{ name: 'first_name', value: name }],
-        tags: [resource],
+        tags: [resource, 'hand-raiser'],
       }),
     }
   );
