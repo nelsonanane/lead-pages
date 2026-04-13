@@ -15,30 +15,32 @@ const title = "Book an AI Audit — @thenelsonkwesi";
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink:    #1A1035;
-      --paper:  #F5F0EC;
-      --accent: #7C3AED;
-      --rule:   rgba(26, 16, 53, 0.1);
-      --serif:  'Playfair Display', Georgia, serif;
-      --mono:   'Courier Prime', 'Courier New', monospace;
+      --ink:      #1A1035;
+      --bg:       #FAFAF8;
+      --soft:     #F0EAFF;
+      --accent:   #7C3AED;
+      --rule:     rgba(26, 16, 53, 0.09);
+      --muted:    rgba(26, 16, 53, 0.38);
+      --serif:    'Playfair Display', Georgia, serif;
+      --mono:     'Courier Prime', 'Courier New', monospace;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: var(--serif);
-      background: var(--paper);
+      background: var(--bg);
       color: var(--ink);
+      font-family: var(--serif);
       overflow-x: hidden;
     }
 
-    /* Grain */
+    /* Subtle paper grain */
     body::after {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
       pointer-events: none;
       z-index: 9999;
     }
@@ -48,227 +50,207 @@ const title = "Book an AI Audit — @thenelsonkwesi";
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 56px;
+      padding: 18px 52px;
       border-bottom: 1px solid var(--rule);
     }
-
     .nav-brand {
       font-family: var(--mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--ink);
       text-decoration: none;
     }
-
     .nav-link {
       font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--ink);
-      opacity: 0.4;
+      font-size: 0.68rem;
+      color: var(--muted);
       text-decoration: none;
-      letter-spacing: 0.05em;
-      transition: opacity 0.2s;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
     }
-    .nav-link:hover { opacity: 1; }
+    .nav-link:hover { color: var(--ink); }
 
     /* ---- Hero ---- */
     .hero {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 88px 56px 96px;
-      position: relative;
-      overflow: hidden;
+      padding: 0 52px 72px;
+      border-bottom: 1px solid var(--rule);
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -30%;
-      right: -5%;
-      width: 640px;
-      height: 640px;
-      background: radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .hero-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
+    .hero-strip {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 36px;
-    }
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 36px;
-      height: 1px;
-      background: var(--accent);
-      flex-shrink: 0;
+      gap: 0;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 64px;
     }
 
-    .hero h1 {
-      font-size: clamp(3rem, 6.5vw, 5.5rem);
+    .strip-item {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 20px;
+      border-right: 1px solid var(--rule);
+    }
+    .strip-item:first-child { padding-left: 0; }
+    .strip-item.accent { color: var(--accent); }
+
+    .hero-headline {
+      font-size: clamp(3.8rem, 8.5vw, 7.5rem);
       font-weight: 900;
-      line-height: 1.0;
-      letter-spacing: -0.025em;
-      max-width: 760px;
-      margin-bottom: 36px;
+      line-height: 0.93;
+      letter-spacing: -0.03em;
+      max-width: 900px;
+      margin-bottom: 52px;
     }
 
-    .hero h1 em {
+    .hero-headline em {
       font-style: italic;
       color: var(--accent);
+    }
+
+    .hero-bottom {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 48px;
+      align-items: end;
     }
 
     .hero-desc {
       font-family: var(--mono);
       font-size: 0.88rem;
-      line-height: 1.75;
-      color: rgba(245,240,236,0.55);
-      max-width: 500px;
-      margin-bottom: 52px;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 480px;
     }
 
-    .hero-cta {
+    .hero-action { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+
+    .btn-primary {
       display: inline-block;
       background: var(--accent);
       color: white;
       font-family: var(--mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 16px 36px;
+      padding: 15px 32px;
       text-decoration: none;
       transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
     }
-    .hero-cta:hover { background: #6d28d9; transform: translateY(-1px); }
+    .btn-primary:hover { background: #6d28d9; transform: translateY(-1px); }
 
-    .hero-footnote {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: rgba(245,240,236,0.25);
-      margin-top: 18px;
-      letter-spacing: 0.04em;
-    }
-
-    /* ---- Section shell ---- */
-    .section { padding: 88px 56px; }
-
-    .section-eyebrow {
+    .hero-note {
       font-family: var(--mono);
       font-size: 0.62rem;
+      color: var(--muted);
+      opacity: 0.6;
+      letter-spacing: 0.03em;
+    }
+
+    /* ---- Section ---- */
+    .section { padding: 72px 52px; border-bottom: 1px solid var(--rule); }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.6rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
+      margin-bottom: 36px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 44px;
+      gap: 10px;
     }
-    .section-eyebrow::before {
+    .eyebrow::before {
       content: '';
       display: block;
-      width: 24px;
+      width: 20px;
       height: 1px;
       background: var(--accent);
       flex-shrink: 0;
     }
 
-    .section-heading {
-      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+    .heading {
+      font-size: clamp(1.7rem, 3.2vw, 2.5rem);
       font-weight: 700;
-      line-height: 1.08;
+      line-height: 1.1;
       letter-spacing: -0.02em;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
-    .section-sub {
+    .sub {
       font-family: var(--mono);
-      font-size: 0.82rem;
-      color: rgba(26,16,53,0.45);
+      font-size: 0.8rem;
+      color: var(--muted);
       line-height: 1.7;
-      margin-bottom: 56px;
-      max-width: 520px;
+      margin-bottom: 52px;
+      max-width: 480px;
     }
 
     /* ---- Deliverables ---- */
-    .deliverables { max-width: 800px; }
+    .deliverables { max-width: 780px; }
 
     .deliverable {
       display: grid;
-      grid-template-columns: 72px 1fr;
-      gap: 0 28px;
-      padding: 36px 0;
+      grid-template-columns: 64px 1fr;
+      gap: 0 24px;
+      padding: 32px 0;
       border-top: 1px solid var(--rule);
     }
     .deliverable:last-child { border-bottom: 1px solid var(--rule); }
 
     .del-num {
       font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
       color: var(--accent);
-      padding-top: 5px;
+      padding-top: 4px;
     }
 
     .del-title {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .del-desc {
       font-family: var(--mono);
-      font-size: 0.82rem;
-      color: rgba(26,16,53,0.55);
+      font-size: 0.8rem;
+      color: var(--muted);
       line-height: 1.75;
     }
 
-    /* ---- For section ---- */
-    .section-dark {
-      background: var(--ink);
-      color: var(--paper);
-    }
-    .section-dark .section-eyebrow { color: rgba(124,58,237,0.75); }
-    .section-dark .section-eyebrow::before { background: rgba(124,58,237,0.75); }
-    .section-dark .section-sub { color: rgba(245,240,236,0.35); }
+    /* ---- Who It's For ---- */
+    .section-soft { background: var(--soft); }
 
-    .biz-grid {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 700px;
-    }
+    .biz-grid { display: flex; flex-wrap: wrap; max-width: 680px; }
 
     .biz-tag {
       font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.05em;
-      color: rgba(245,240,236,0.55);
-      border: 1px solid rgba(245,240,236,0.12);
-      padding: 11px 20px;
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      border: 1px solid rgba(26,16,53,0.15);
+      padding: 10px 18px;
       margin: -1px 0 0 -1px;
-      transition: background 0.15s, color 0.15s;
-      cursor: default;
+      background: white;
+      transition: background 0.15s, border-color 0.15s;
     }
-    .biz-tag:hover {
-      background: rgba(124,58,237,0.25);
-      color: var(--paper);
-    }
+    .biz-tag:hover { background: var(--accent); color: white; border-color: var(--accent); }
 
     .for-note {
       font-family: var(--mono);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--accent);
-      margin-top: 40px;
-      letter-spacing: 0.04em;
+      margin-top: 32px;
+      letter-spacing: 0.03em;
     }
 
     /* ---- Stats ---- */
@@ -277,7 +259,7 @@ const title = "Book an AI Audit — @thenelsonkwesi";
       grid-template-columns: repeat(2, 1fr);
       border-top: 1px solid var(--rule);
       border-left: 1px solid var(--rule);
-      max-width: 760px;
+      max-width: 720px;
     }
 
     .stat-cell {
@@ -287,69 +269,85 @@ const title = "Book an AI Audit — @thenelsonkwesi";
     }
 
     .stat-num {
-      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      font-size: clamp(2.5rem, 4.5vw, 3.5rem);
       font-weight: 900;
       color: var(--accent);
       line-height: 1;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .stat-label {
       font-family: var(--mono);
-      font-size: 0.75rem;
-      color: rgba(26,16,53,0.45);
+      font-size: 0.72rem;
+      color: var(--muted);
       line-height: 1.55;
     }
 
     .stats-note {
       font-family: var(--mono);
-      font-size: 0.62rem;
-      color: rgba(26,16,53,0.25);
-      margin-top: 18px;
-      letter-spacing: 0.03em;
+      font-size: 0.6rem;
+      color: rgba(26,16,53,0.22);
+      margin-top: 16px;
     }
 
     /* ---- Pricing ---- */
-    .pricing-card {
-      border: 1px solid rgba(245,240,236,0.12);
-      padding: 52px;
-      max-width: 460px;
+    .pricing-inner {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 64px;
+      align-items: start;
+      max-width: 900px;
     }
 
-    .price-eyebrow {
+    .pricing-intro .heading { margin-bottom: 20px; }
+
+    .pricing-note {
       font-family: var(--mono);
-      font-size: 0.6rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .pricing-card {
+      background: var(--ink);
+      color: white;
+      padding: 44px;
+    }
+
+    .price-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .price-amount {
-      font-size: clamp(3.5rem, 6vw, 4.5rem);
+      font-size: 3.8rem;
       font-weight: 900;
       line-height: 1;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .price-meta {
       font-family: var(--mono);
-      font-size: 0.7rem;
-      color: rgba(245,240,236,0.3);
-      letter-spacing: 0.05em;
-      margin-bottom: 40px;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.28);
+      letter-spacing: 0.04em;
+      margin-bottom: 36px;
     }
 
-    .price-list { list-style: none; margin-bottom: 40px; }
+    .price-list { list-style: none; margin-bottom: 36px; }
 
     .price-item {
       display: flex;
-      gap: 14px;
-      padding: 11px 0;
-      border-top: 1px solid rgba(245,240,236,0.07);
+      gap: 12px;
+      padding: 10px 0;
+      border-top: 1px solid rgba(255,255,255,0.07);
       font-family: var(--mono);
-      font-size: 0.8rem;
-      color: rgba(245,240,236,0.6);
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.58);
       line-height: 1.5;
     }
     .price-item::before {
@@ -361,53 +359,48 @@ const title = "Book an AI Audit — @thenelsonkwesi";
 
     .price-btn {
       display: block;
-      width: 100%;
       background: var(--accent);
       color: white;
       font-family: var(--mono);
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 17px;
+      padding: 15px;
       text-align: center;
       text-decoration: none;
-      border: none;
-      cursor: pointer;
       transition: background 0.2s;
     }
     .price-btn:hover { background: #6d28d9; }
 
     .price-footnote {
       font-family: var(--mono);
-      font-size: 0.62rem;
-      color: rgba(245,240,236,0.18);
-      margin-top: 14px;
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.18);
+      margin-top: 12px;
       text-align: center;
-      letter-spacing: 0.03em;
     }
 
     /* ---- Book ---- */
-    .booking-wrap { max-width: 760px; }
-
-    .booking-placeholder {
+    .booking-box {
       border: 1px solid var(--rule);
       padding: 72px 48px;
       text-align: center;
+      max-width: 640px;
     }
 
-    .booking-placeholder p {
+    .booking-box p {
       font-family: var(--mono);
-      font-size: 0.78rem;
-      color: rgba(26,16,53,0.3);
+      font-size: 0.75rem;
+      color: rgba(26,16,53,0.28);
       line-height: 1.7;
     }
 
     .book-contact {
       font-family: var(--mono);
-      font-size: 0.75rem;
-      color: rgba(26,16,53,0.4);
-      margin-top: 28px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 24px;
     }
     .book-contact a {
       color: var(--accent);
@@ -418,41 +411,38 @@ const title = "Book an AI Audit — @thenelsonkwesi";
 
     /* ---- Footer ---- */
     footer {
-      border-top: 1px solid var(--rule);
-      padding: 28px 56px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 24px 52px;
+      border-top: 1px solid var(--rule);
     }
-
     .footer-copy {
       font-family: var(--mono);
-      font-size: 0.65rem;
-      color: rgba(26,16,53,0.25);
+      font-size: 0.62rem;
+      color: rgba(26,16,53,0.22);
       letter-spacing: 0.04em;
     }
-
     .footer-link {
       font-family: var(--mono);
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       color: var(--accent);
       text-decoration: none;
       opacity: 0.55;
-      letter-spacing: 0.04em;
       transition: opacity 0.2s;
     }
     .footer-link:hover { opacity: 1; }
 
     /* ---- Responsive ---- */
-    @media (max-width: 680px) {
-      nav, .section, .hero, footer { padding-left: 24px; padding-right: 24px; }
-      .hero { padding-top: 60px; padding-bottom: 72px; }
+    @media (max-width: 720px) {
+      nav, .hero, .section, footer { padding-left: 24px; padding-right: 24px; }
+      .hero-bottom { grid-template-columns: 1fr; }
+      .hero-action { align-items: flex-start; }
       .deliverable { grid-template-columns: 1fr; }
-      .del-num { margin-bottom: 6px; }
+      .del-num { margin-bottom: 4px; }
       .stats-grid { grid-template-columns: 1fr; }
-      .stat-cell:nth-child(odd) { border-right: 1px solid var(--rule); }
-      .pricing-card { padding: 32px 24px; }
-      .booking-placeholder { padding: 48px 24px; }
+      .pricing-inner { grid-template-columns: 1fr; }
+      .booking-box { padding: 48px 24px; }
       footer { flex-direction: column; gap: 10px; }
     }
   </style>
@@ -467,28 +457,41 @@ const title = "Book an AI Audit — @thenelsonkwesi";
 
   <!-- Hero -->
   <div class="hero">
-    <p class="hero-eyebrow">Done-For-You &nbsp;·&nbsp; 30 min &nbsp;·&nbsp; $500 flat</p>
-    <h1>Your Business.<br/><em>Automated.</em><br/>In One Session.</h1>
-    <p class="hero-desc">
-      I map your workflow, build a live AI automation on the spot, and deliver
-      a one-page report showing exactly what it saves you — time, money, and headaches.
-      No tech skills needed.
-    </p>
-    <a href="#book" class="hero-cta">Book your AI Audit &mdash; $500</a>
-    <p class="hero-footnote">Founding rate &nbsp;·&nbsp; first 5 clients &nbsp;·&nbsp; price increases to $1,000 after</p>
+    <div class="hero-strip">
+      <span class="strip-item">AI Audit</span>
+      <span class="strip-item">Done-For-You</span>
+      <span class="strip-item accent">$500 Founding Rate</span>
+      <span class="strip-item">First 5 Clients</span>
+    </div>
+
+    <h1 class="hero-headline">
+      Your Business.<br/><em>Automated.</em><br/>In One Session.
+    </h1>
+
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        I map your workflow, build a live AI automation on the spot, and deliver
+        a one-page report showing exactly what it saves you — time, money, and headaches.
+        Done in 30 minutes. No tech skills needed.
+      </p>
+      <div class="hero-action">
+        <a href="#book" class="btn-primary">Book your AI Audit &mdash; $500</a>
+        <span class="hero-note">Price increases to $1,000 after 5 clients</span>
+      </div>
+    </div>
   </div>
 
   <!-- What You Get -->
   <section class="section">
-    <p class="section-eyebrow">What you get</p>
-    <h2 class="section-heading">Everything in one 30-minute session.</h2>
-    <p class="section-sub">No follow-up calls. No waiting. No surprises.</p>
+    <p class="eyebrow">What you get</p>
+    <h2 class="heading">Everything in one 30-minute session.</h2>
+    <p class="sub">No follow-up calls. No waiting. No surprises.</p>
     <div class="deliverables">
       {[
-        { num: "01", title: "Workflow Mapping", desc: "We find the one task your team does every day that's eating your time. Booking confirmations, client emails, quote follow-ups — whatever's most painful." },
+        { num: "01", title: "Workflow Mapping",    desc: "We find the one task your team does every day that's eating your time. Booking confirmations, client emails, quote follow-ups — whatever's most painful." },
         { num: "02", title: "Live Automation Build", desc: "I build the automation while you watch — using Zapier and ChatGPT, connected to tools you already use. You see it work in real time before the call ends." },
-        { num: "03", title: "AI Audit Report", desc: "A one-page PDF: what was built, how many hours per week it saves, the dollar value of that time, and 3 more automations you could add next." },
-        { num: "04", title: "Expansion Roadmap", desc: "A clear picture of what else is possible — so you know exactly what your next step looks like if you want to keep going." },
+        { num: "03", title: "AI Audit Report",     desc: "A one-page PDF: what was built, how many hours per week it saves, the dollar value of that time, and 3 more automations you could add next." },
+        { num: "04", title: "Expansion Roadmap",   desc: "A clear picture of what else is possible — so you know exactly what your next step looks like if you want to keep going." },
       ].map(({ num, title, desc }) => (
         <div class="deliverable">
           <span class="del-num">{num}</span>
@@ -502,10 +505,10 @@ const title = "Book an AI Audit — @thenelsonkwesi";
   </section>
 
   <!-- Who It's For -->
-  <section class="section section-dark">
-    <p class="section-eyebrow">Who this is for</p>
-    <h2 class="section-heading">You don't need to know anything about AI.</h2>
-    <p class="section-sub">You just need a business that does repetitive work.</p>
+  <section class="section section-soft">
+    <p class="eyebrow">Who this is for</p>
+    <h2 class="heading">You don't need to know anything about AI.</h2>
+    <p class="sub">You just need a business that does repetitive work.</p>
     <div class="biz-grid">
       {["Hair & beauty salons", "Real estate agents", "Law offices", "Dental & medical clinics", "Restaurants & cafes", "Contractors & tradespeople", "Fitness studios", "Property managers"].map((biz) => (
         <span class="biz-tag">{biz}</span>
@@ -514,11 +517,11 @@ const title = "Book an AI Audit — @thenelsonkwesi";
     <p class="for-note">If your team does the same tasks every day, there's something to automate.</p>
   </section>
 
-  <!-- Real Numbers -->
+  <!-- Stats -->
   <section class="section">
-    <p class="section-eyebrow">The numbers</p>
-    <h2 class="section-heading">What one automation actually looks like.</h2>
-    <p class="section-sub">Based on the Bella's Beauty Studio audit — results vary by business.</p>
+    <p class="eyebrow">The numbers</p>
+    <h2 class="heading">What one automation actually looks like.</h2>
+    <p class="sub">Based on the Bella's Beauty Studio audit — results vary by business.</p>
     <div class="stats-grid">
       {[
         { stat: "6 hrs",  label: "Average time saved per week from one automation" },
@@ -535,49 +538,52 @@ const title = "Book an AI Audit — @thenelsonkwesi";
   </section>
 
   <!-- Pricing -->
-  <section class="section section-dark">
-    <p class="section-eyebrow">Pricing</p>
-    <h2 class="section-heading" style="margin-bottom: 48px;">No retainer. No surprise fees.</h2>
-    <div class="pricing-card">
-      <p class="price-eyebrow">AI Audit — Founding Rate</p>
-      <div class="price-amount">$500</div>
-      <p class="price-meta">flat fee &nbsp;·&nbsp; first 5 clients only</p>
-      <ul class="price-list">
-        {[
-          "30-minute session via Zoom",
-          "Live automation built while you watch",
-          "One-page AI Audit Report PDF",
-          "3 expansion automation ideas",
-          "Retainer proposal if you want to keep going"
-        ].map((item) => (
-          <li class="price-item">{item}</li>
-        ))}
-      </ul>
-      <a href="#book" class="price-btn">Book Now &mdash; $500</a>
-      <p class="price-footnote">Price increases to $1,000 after 5 clients.</p>
+  <section class="section">
+    <p class="eyebrow">Pricing</p>
+    <div class="pricing-inner">
+      <div class="pricing-intro">
+        <h2 class="heading">No retainer.<br/>No surprise fees.</h2>
+        <p class="pricing-note">
+          One session, one price. You see the automation working before the call ends —
+          or we don't stop until it does.
+        </p>
+      </div>
+      <div class="pricing-card">
+        <p class="price-label">AI Audit &mdash; Founding Rate</p>
+        <div class="price-amount">$500</div>
+        <p class="price-meta">flat fee &nbsp;·&nbsp; first 5 clients only</p>
+        <ul class="price-list">
+          {[
+            "30-minute session via Zoom",
+            "Live automation built while you watch",
+            "One-page AI Audit Report PDF",
+            "3 expansion automation ideas",
+            "Retainer proposal if you want to keep going",
+          ].map((item) => (
+            <li class="price-item">{item}</li>
+          ))}
+        </ul>
+        <a href="#book" class="price-btn">Book Now &mdash; $500</a>
+        <p class="price-footnote">Price increases to $1,000 after 5 clients.</p>
+      </div>
     </div>
   </section>
 
   <!-- Book -->
   <section id="book" class="section">
-    <div class="booking-wrap">
-      <p class="section-eyebrow">Book</p>
-      <h2 class="section-heading">Ready to book?</h2>
-      <p class="section-sub">
-        Pick a time that works for you. We'll spend 30 minutes mapping your workflow
-        and building your first automation live on the call.
-      </p>
-      <div class="booking-placeholder">
-        <p>Booking calendar loads here</p>
-        <p style="margin-top: 8px; opacity: 0.6;">Add your Calendly embed or booking link here.</p>
-      </div>
-      <p class="book-contact">
-        Questions first? DM on
-        <a href="https://x.com/thenelsonkwesi">X (@thenelsonkwesi)</a>
-        or
-        <a href="https://instagram.com/thenelsonkwesi">Instagram</a>.
-      </p>
+    <p class="eyebrow">Book</p>
+    <h2 class="heading" style="margin-bottom: 10px;">Ready to book?</h2>
+    <p class="sub">Pick a time that works for you. 30 minutes, live automation, done.</p>
+    <div class="booking-box">
+      <p>Booking calendar loads here</p>
+      <p style="margin-top: 6px; font-size: 0.65rem;">Add your Calendly embed or booking link here.</p>
     </div>
+    <p class="book-contact" style="margin-top: 20px;">
+      Questions first? DM on
+      <a href="https://x.com/thenelsonkwesi">X (@thenelsonkwesi)</a>
+      or
+      <a href="https://instagram.com/thenelsonkwesi">Instagram</a>.
+    </p>
   </section>
 
   <!-- Footer -->
