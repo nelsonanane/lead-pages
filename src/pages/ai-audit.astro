@@ -329,17 +329,14 @@ const title = "Book an AI Audit — @thenelsonkwesi";
     }
 
     /* Book */
-    .booking-box {
+    .calendly-wrap {
+      max-width: 700px;
       border: 1px solid var(--rule);
-      padding: 72px 48px;
-      text-align: center;
-      max-width: 640px;
+      overflow: hidden;
     }
-    .booking-box p {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: rgba(26,16,53,0.28);
-      line-height: 1.7;
+    .calendly-inline-widget {
+      min-width: 320px;
+      height: 700px;
     }
     .book-contact {
       font-family: var(--mono);
@@ -521,9 +518,13 @@ const title = "Book an AI Audit — @thenelsonkwesi";
       <p class="eyebrow">Book</p>
       <h2 class="heading" style="margin-bottom: 10px;">Ready to book?</h2>
       <p class="sub">Pick a time that works for you. 30 minutes, live automation, done.</p>
-      <div class="booking-box">
-        <p>Booking calendar loads here</p>
-        <p style="margin-top: 6px; font-size: 0.65rem;">Add your Calendly embed or booking link here.</p>
+      <div class="calendly-wrap">
+        <div
+          class="calendly-inline-widget"
+          data-url="https://calendly.com/nelson-kwesiholdings/ai-audit"
+          style="min-width:320px;height:700px;"
+        ></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
       </div>
       <p class="book-contact" style="margin-top: 20px;">
         Questions first? DM on
