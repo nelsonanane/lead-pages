@@ -12,8 +12,7 @@ export default {
         dark: '#1A1035',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        sans: ['Syne', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['"Courier Prime"', '"Courier New"', 'monospace'],
       },
     },
