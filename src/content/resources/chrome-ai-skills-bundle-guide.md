@@ -2,7 +2,7 @@
 title: "How to Build and Sell Chrome AI Skill Packs"
 headline: "Google Just Opened a New Channel to Sell Your AI Prompts — Here's the Exact Model"
 subtitle: "Turn your best AI prompts into one-click Chrome tools. Bundle them for a niche. Sell the pack on Gumroad. Step-by-step setup and the 3 highest-demand niches."
-pdfUrl: "https://drive.google.com/file/d/PENDING_UPLOAD/view"
+pdfUrl: "https://drive.google.com/file/d/11Rh1O4M_w8tZqQxvzo9i7BvaI4nNqF60/view?usp=drivesdk"
 valueProps:
   - "How Chrome AI Skills work and how to build one in under 10 minutes"
   - "The bundle model — why you sell 10 skills as a pack, not individually"

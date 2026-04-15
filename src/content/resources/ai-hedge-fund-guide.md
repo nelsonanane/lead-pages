@@ -2,7 +2,7 @@
 title: "The AI Hedge Fund Setup Guide"
 headline: "Run 14 Legendary Investor AI Agents on Any Stock — For Free"
 subtitle: "Step-by-step setup for virattt/ai-hedge-fund: 14 investor agents (Buffett, Burry, Munger + 11 more), one Portfolio Manager that synthesizes them all. No finance background needed."
-pdfUrl: "https://drive.google.com/file/d/PENDING_UPLOAD/view"
+pdfUrl: "https://drive.google.com/file/d/1g8Padz7GNaHb3eL9yLKxvsVefocvB4SI/view?usp=drivesdk"
 valueProps:
   - "The exact setup steps — Python, API keys, first run in 15 minutes"
   - "All 14 investor agent profiles and what each one looks for"

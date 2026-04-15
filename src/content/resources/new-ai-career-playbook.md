@@ -2,7 +2,7 @@
 title: "The New AI Career Playbook"
 headline: "How to Land the High-Paying Roles AI Just Created — Without Learning to Code"
 subtitle: "The 5 new AI job categories, what they pay, and the exact 30-day plan to position yourself for the one that fits your background."
-pdfUrl: "https://drive.google.com/file/d/PENDING_UPLOAD/view"
+pdfUrl: "https://drive.google.com/file/d/12yazgg_41l6n0nZvD4Roj6pmwwgcTIBW/view?usp=drivesdk"
 valueProps:
   - "5 new AI roles with hourly rates ($50–$300/hr) and hiring context"
   - "The 30-day positioning plan — portfolio piece, LinkedIn update, 10 outreach conversations"

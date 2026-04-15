@@ -2,7 +2,7 @@
 title: "How to Run a One-Person Agency With AI Agents"
 headline: "One Person. 49 AI Agents. Agency-Level Output."
 subtitle: "The Claude-Code-Game-Studios model applied to creative services. How to structure an AI agent team for writing, design, marketing, or development — and how to price it to clients."
-pdfUrl: "https://drive.google.com/file/d/PENDING_UPLOAD/view"
+pdfUrl: "https://drive.google.com/file/d/1VtH47Cm9cyAHiNAaW-ddgqlkYmJJdNGB/view?usp=drivesdk"
 valueProps:
   - "The 5-layer agent hierarchy that mirrors a real agency structure"
   - "What you still own — direction, taste, client relationships"

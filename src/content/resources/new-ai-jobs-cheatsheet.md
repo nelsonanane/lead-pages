@@ -2,7 +2,7 @@
 title: "The New AI Jobs Cheatsheet"
 headline: "5 High-Paying AI Jobs That Didn't Exist 2 Years Ago — None Require Coding"
 subtitle: "Incanter, Process Engineer, Statistical Engineer, and 2 more. What they pay, who's hiring, and how to position yourself in 30 days."
-pdfUrl: "https://drive.google.com/file/d/PENDING_UPLOAD/view"
+pdfUrl: "https://drive.google.com/file/d/1w8Ze3n0EyCv8Sjj_-3VwyE-Kele6mXgl/view?usp=drivesdk"
 valueProps:
   - "All 5 new AI job categories with pay rates ($50–$300/hr)"
   - "Why these roles exist — the enterprise AI failures that created them"

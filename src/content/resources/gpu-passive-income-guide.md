@@ -2,7 +2,7 @@
 title: "GPU Passive Income Setup Guide"
 headline: "Your Idle Gaming PC Can Pay Your Internet Bill With AI"
 subtitle: "How to turn your unused GPU into a node on the AgentFM P2P AI compute network. Setup in 10 minutes. No clients, no selling, no ongoing work."
-pdfUrl: "https://drive.google.com/file/d/PENDING_UPLOAD/view"
+pdfUrl: "https://drive.google.com/file/d/1wkKRVHK7TR1IJrGziVcgOB40gju1S0Nx/view?usp=drivesdk"
 valueProps:
   - "Full setup walkthrough — one binary, no installation required"
   - "Honest earnings breakdown by GPU model (RTX 3070 vs 4090)"
