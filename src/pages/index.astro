@@ -12,21 +12,24 @@ const resources = allResources.sort((a, b) => (a.data.order ?? 999) - (b.data.or
   <title>Free Resources — @thenelsonkwesi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --ink:    #1A1035;
-      --bg:     #FAFAF8;
-      --accent: #15803D;
-      --rule:   rgba(26, 16, 53, 0.09);
-      --muted:  rgba(26, 16, 53, 0.38);
-      --serif:  'Syne', system-ui, sans-serif;
-      --mono:   'Courier Prime', 'Courier New', monospace;
+      --bg:      #0E0E12;
+      --bg-hero: #111108;
+      --ink:     #F0EDE0;
+      --accent:  #F0C030;
+      --rule:    rgba(240, 192, 48, 0.12);
+      --muted:   rgba(240, 237, 224, 0.42);
+      --font:    'Kode Mono', 'Courier New', monospace;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--ink); font-family: var(--serif); }
+    body { background: var(--bg); color: var(--ink); font-family: var(--font); }
 
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 52px; }
+
+    /* ── Nav ── */
     nav {
       border-bottom: 1px solid var(--rule);
       padding: 18px 0;
@@ -37,32 +40,39 @@ const resources = allResources.sort((a, b) => (a.data.order ?? 999) - (b.data.or
       align-items: center;
     }
     .nav-brand {
-      font-family: var(--mono);
       font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--ink);
+      color: var(--accent);
       text-decoration: none;
     }
     .nav-link {
-      font-family: var(--mono);
       font-size: 0.68rem;
       color: var(--muted);
       text-decoration: none;
       transition: color 0.2s;
     }
-    .nav-link:hover { color: var(--ink); }
+    .nav-link:hover { color: var(--accent); }
 
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 52px; }
-
+    /* ── Header ── */
     .page-header {
-      padding: 64px 0 48px;
+      padding: 72px 0 52px;
       border-bottom: 1px solid var(--rule);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 400px;
+      height: 300px;
+      background: radial-gradient(ellipse at top left, rgba(240,192,48,0.06) 0%, transparent 70%);
+      pointer-events: none;
     }
     .eyebrow {
-      font-family: var(--mono);
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
@@ -80,22 +90,21 @@ const resources = allResources.sort((a, b) => (a.data.order ?? 999) - (b.data.or
       flex-shrink: 0;
     }
     .page-header h1 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: -0.025em;
-      margin-bottom: 10px;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      text-shadow: 2px 3px 0px rgba(0,0,0,0.5);
     }
     .page-header p {
-      font-family: var(--mono);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
-    .resources-list { padding: 48px 0 80px; }
+    /* ── List ── */
+    .resources-list { padding: 48px 0 100px; }
     .empty {
-      font-family: var(--mono);
       font-size: 0.8rem;
       color: var(--muted);
       padding: 48px 0;
@@ -117,21 +126,19 @@ const resources = allResources.sort((a, b) => (a.data.order ?? 999) - (b.data.or
     .resource-item:hover .resource-arrow { color: var(--accent); transform: translateX(4px); }
 
     .resource-title {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 700;
       margin-bottom: 6px;
       transition: color 0.2s;
     }
     .resource-desc {
-      font-family: var(--mono);
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.65;
       max-width: 560px;
     }
     .resource-meta {
-      font-family: var(--mono);
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       color: var(--accent);
       white-space: nowrap;
       flex-shrink: 0;
@@ -144,6 +151,7 @@ const resources = allResources.sort((a, b) => (a.data.order ?? 999) - (b.data.or
       transition: transform 0.2s, color 0.2s;
     }
 
+    /* ── Footer ── */
     footer {
       border-top: 1px solid var(--rule);
       padding: 24px 0;
@@ -154,13 +162,11 @@ const resources = allResources.sort((a, b) => (a.data.order ?? 999) - (b.data.or
       align-items: center;
     }
     .footer-copy {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      color: rgba(26,16,53,0.22);
+      font-size: 0.6rem;
+      color: rgba(240,237,224,0.18);
     }
     .footer-cta {
-      font-family: var(--mono);
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       color: var(--accent);
       text-decoration: none;
       font-weight: 700;
@@ -187,7 +193,7 @@ const resources = allResources.sort((a, b) => (a.data.order ?? 999) - (b.data.or
     <div class="wrap">
       <p class="eyebrow">Free Resources</p>
       <h1>Guides, cheatsheets,<br/>and checklists.</h1>
-      <p>Practical tools to help you automate your business — no tech skills needed.</p>
+      <p>Practical tools to help you use AI to build income and save time — no fluff.</p>
     </div>
   </div>
 
@@ -203,7 +209,7 @@ const resources = allResources.sort((a, b) => (a.data.order ?? 999) - (b.data.or
               <p class="resource-desc">{r.data.previewDescription}</p>
             </div>
             <span class="resource-meta">
-              {r.data.pages}-page {r.data.type}
+              {r.data.pages}p {r.data.type}
               <span class="resource-arrow">&rarr;</span>
             </span>
           </a>

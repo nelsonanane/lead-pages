@@ -5,15 +5,20 @@ export default {
     extend: {
       colors: {
         accent: {
-          DEFAULT: '#15803D',  // Forest green
-          light:   '#F0FDF4',  // Very light green tint
-          dark:    '#166534',  // Deep forest green (hover)
+          DEFAULT: '#F0C030',
+          dark:    '#C49B20',
+          dim:     'rgba(240,192,48,0.08)',
         },
-        dark: '#1A1035',
+        brand: {
+          bg:   '#0E0E12',
+          card: '#141418',
+          hero: '#111108',
+          ink:  '#F0EDE0',
+        },
       },
       fontFamily: {
-        sans: ['Syne', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['"Courier Prime"', '"Courier New"', 'monospace'],
+        mono: ['"Kode Mono"', '"Courier New"', 'monospace'],
+        sans: ['"Kode Mono"', '"Courier New"', 'monospace'],
       },
     },
   },
