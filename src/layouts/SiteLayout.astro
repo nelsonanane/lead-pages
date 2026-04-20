@@ -12,6 +12,7 @@ const {
 } = Astro.props;
 
 const today = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).replace(/\//g, '-');
+const year = new Date().getFullYear();
 ---
 
 <html lang="en">
@@ -224,11 +225,11 @@ const today = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2
     <span>REC <span class="blink">●</span> &nbsp;{today}</span>
   </div>
 
-  <nav>
+  <nav aria-label="Main navigation">
     <div class="inner">
       <a href="/" class="nav-brand">nelsonkwesi.xyz</a>
-      <button class="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">MENU</button>
-      <div class="nav-links">
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links">MENU</button>
+      <div class="nav-links" id="nav-links">
         <a href="/" class:list={['nav-link', { active: activeNav === 'home' }]}>Home</a>
         <a href="/free-resources" class:list={['nav-link', { active: activeNav === 'free-resources' }]}>Free Resources</a>
         <a href="/ai-audit" class:list={['nav-link', { active: activeNav === 'ai-audit' }]}>AI Audit</a>
@@ -240,13 +241,24 @@ const today = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2
   <slot />
 
   <footer class="site-footer">
-    <span class="footer-copy">&copy; {new Date().getFullYear()} nelsonkwesi.xyz</span>
+    <span class="footer-copy">&copy; {year} nelsonkwesi.xyz</span>
     <div class="footer-links">
       <a href="/free-resources" class="footer-link">Resources</a>
       <a href="/ai-audit" class="footer-link">Audit</a>
       <a href="/about" class="footer-link">About</a>
     </div>
   </footer>
+
+  <script>
+    const toggle = document.getElementById('nav-toggle');
+    const links = document.getElementById('nav-links');
+    if (toggle && links) {
+      toggle.addEventListener('click', () => {
+        const open = links.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+    }
+  </script>
 
 </div>
 </body>
