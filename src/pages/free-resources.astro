@@ -58,6 +58,7 @@ const resources = allResources.sort((a, b) => (a.data.order ?? 999) - (b.data.or
     .resource-item:last-child { border-bottom: 1px solid var(--border); }
     .resource-item:hover .resource-title { color: var(--amber); }
     .resource-item:hover .resource-arrow { color: var(--amber); transform: translateX(4px); }
+    .resource-item:focus-visible { outline: 1px solid var(--amber); outline-offset: 2px; }
 
     .resource-title { font-size: 0.92rem; font-weight: 700; margin-bottom: 5px; transition: color 0.2s; }
     .resource-desc { font-size: 0.65rem; color: var(--ink-dim); line-height: 1.65; max-width: 520px; }
@@ -88,14 +89,14 @@ const resources = allResources.sort((a, b) => (a.data.order ?? 999) - (b.data.or
       <p class="empty">No resources yet. Check back soon.</p>
     ) : (
       resources.map((r) => (
-        <a href={`/${r.id.replace(/\.md$/, '')}`} class="resource-item">
+        <a href={`/${r.slug}`} class="resource-item" aria-label={r.data.title}>
           <div>
             <h2 class="resource-title">{r.data.title}</h2>
             <p class="resource-desc">{r.data.previewDescription}</p>
           </div>
           <span class="resource-meta">
             {r.data.pages}p {r.data.type}
-            <span class="resource-arrow">&rarr;</span>
+            <span class="resource-arrow" aria-hidden="true">&rarr;</span>
           </span>
         </a>
       ))
