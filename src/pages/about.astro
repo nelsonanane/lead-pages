@@ -23,11 +23,34 @@ import SiteLayout from '../layouts/SiteLayout.astro';
     }
     .about-hero h1 em { font-style: normal; color: var(--amber); }
 
+    .about-layout { display: grid; grid-template-columns: 1fr 260px; gap: 40px; align-items: start; }
     .about-body { max-width: 620px; }
     .about-body p { font-size: 0.72rem; color: var(--ink-dim); line-height: 1.88; margin-bottom: 18px; }
     .about-body p:last-of-type { margin-bottom: 0; }
 
+    .about-photo-wrap { position: relative; }
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: grayscale(18%) contrast(1.04);
+      border: 1px solid var(--border);
+    }
+    .photo-label {
+      position: absolute; bottom: -9px; left: 12px;
+      background: var(--bg); padding: 0 8px;
+      font-size: 0.5rem; letter-spacing: 0.14em;
+      color: var(--amber-dim); text-transform: uppercase;
+    }
+
     .stack-section { padding: 36px 0; border-bottom: 1px solid var(--border); }
+
+    @media (max-width: 640px) {
+      .about-layout { grid-template-columns: 1fr; }
+      .about-photo-wrap { order: -1; max-width: 240px; }
+    }
     .stack-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
     .stack-item { font-size: 0.58rem; letter-spacing: 0.08em; color: var(--ink-dim); border: 1px solid var(--border); padding: 5px 12px; }
   </style>
@@ -38,15 +61,23 @@ import SiteLayout from '../layouts/SiteLayout.astro';
       <div class="about-inner">
         <p class="sys-line">Nelson Kwesi &mdash; Software Engineer &middot; AI Systems Builder</p>
         <h1>Building systems<br/>that <em>mean something.</em></h1>
-        <div class="about-body">
-          <p>Born in Ghana. Moved to the US for college. Spent close to a decade building software &mdash; JavaScript, TypeScript, backend systems, banking platforms.</p>
-          <p>Then got serious about what AI could actually do in production. Not prototypes. Not proof-of-concepts. Real systems, running real businesses. Started building two of them &mdash; and documenting the whole thing publicly.</p>
-          <p>Steve Jobs didn&apos;t just make the thing &mdash; he made people understand why it mattered. That&apos;s the idea here. We build, we share, we figure it out together.</p>
-        </div>
-        <div class="socials" style="margin-top:28px;">
-          <a class="social" href="https://x.com/nelsonkwesix" target="_blank" rel="noopener">X: @nelsonkwesix</a>
-          <a class="social" href="https://youtube.com/@nelsonkwesi" target="_blank" rel="noopener">YouTube: Nelson Kwesi</a>
-          <a class="social" href="https://instagram.com/nelsonkwesi.xyz" target="_blank" rel="noopener">Instagram: @nelsonkwesi.xyz</a>
+        <div class="about-layout">
+          <div>
+            <div class="about-body">
+              <p>Born in Ghana. Moved to the US for college. Spent close to a decade building software &mdash; JavaScript, TypeScript, backend systems, banking platforms.</p>
+              <p>Then got serious about what AI could actually do in production. Not prototypes. Not proof-of-concepts. Real systems, running real businesses. Started building two of them &mdash; and documenting the whole thing publicly.</p>
+              <p>Steve Jobs didn&apos;t just make the thing &mdash; he made people understand why it mattered. That&apos;s the idea here. We build, we share, we figure it out together.</p>
+            </div>
+            <div class="socials" style="margin-top:28px;">
+              <a class="social" href="https://x.com/nelsonkwesix" target="_blank" rel="noopener">X: @nelsonkwesix</a>
+              <a class="social" href="https://youtube.com/@nelsonkwesi" target="_blank" rel="noopener">YouTube: Nelson Kwesi</a>
+              <a class="social" href="https://instagram.com/nelsonkwesi.xyz" target="_blank" rel="noopener">Instagram: @nelsonkwesi.xyz</a>
+            </div>
+          </div>
+          <div class="about-photo-wrap">
+            <img src="/nelson.png" alt="Nelson Kwesi" class="about-photo" />
+            <span class="photo-label">NELSON KWESI</span>
+          </div>
         </div>
       </div>
     </div>
