@@ -1,0 +1,69 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout
+  title="About — nelsonkwesi.xyz"
+  description="Software engineer. AI systems builder. Born in Ghana. Building in public."
+  activeNav="about"
+>
+  <style>
+    .about-hero { padding: 52px 0 44px; border-bottom: 1px solid var(--border); }
+    .about-inner { padding: 28px; }
+    .sys-line {
+      font-size: 0.58rem; color: var(--amber-dim); letter-spacing: 0.14em;
+      text-transform: uppercase; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sys-line::before { content: '>'; color: var(--amber); }
+    .about-hero h1 {
+      font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 700; line-height: 1.08;
+      color: var(--ink); margin-bottom: 28px;
+      text-shadow: 0 0 24px rgba(240,192,48,0.1);
+    }
+    .about-hero h1 em { font-style: normal; color: var(--amber); }
+
+    .about-body { max-width: 620px; }
+    .about-body p { font-size: 0.72rem; color: var(--ink-dim); line-height: 1.88; margin-bottom: 18px; }
+    .about-body p:last-of-type { margin-bottom: 0; }
+
+    .stack-section { padding: 36px 0; border-bottom: 1px solid var(--border); }
+    .stack-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+    .stack-item { font-size: 0.58rem; letter-spacing: 0.08em; color: var(--ink-dim); border: 1px solid var(--border); padding: 5px 12px; }
+  </style>
+
+  <div class="about-hero">
+    <div class="box">
+      <span class="box-label">// ABOUT</span>
+      <div class="about-inner">
+        <p class="sys-line">Nelson Kwesi &mdash; Software Engineer &middot; AI Systems Builder</p>
+        <h1>Building systems<br/>that <em>mean something.</em></h1>
+        <div class="about-body">
+          <p>Born in Ghana. Moved to the US for college. Spent close to a decade building software &mdash; JavaScript, TypeScript, backend systems, banking platforms.</p>
+          <p>Then got serious about what AI could actually do in production. Not prototypes. Not proof-of-concepts. Real systems, running real businesses. Started building two of them &mdash; and documenting the whole thing publicly.</p>
+          <p>Steve Jobs didn&apos;t just make the thing &mdash; he made people understand why it mattered. That&apos;s the idea here. We build, we share, we figure it out together.</p>
+        </div>
+        <div class="socials" style="margin-top:28px;">
+          <a class="social" href="https://x.com/nelsonkwesix" target="_blank" rel="noopener">X: @nelsonkwesix</a>
+          <a class="social" href="https://youtube.com/@nelsonkwesi" target="_blank" rel="noopener">YouTube: Nelson Kwesi</a>
+          <a class="social" href="https://instagram.com/nelsonkwesi.xyz" target="_blank" rel="noopener">Instagram: @nelsonkwesi.xyz</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack-section">
+    <p class="sec-label">TECH STACK</p>
+    <h2>What gets used to build.</h2>
+    <div class="stack-grid">
+      <span class="stack-item">JavaScript</span>
+      <span class="stack-item">TypeScript</span>
+      <span class="stack-item">Node.js</span>
+      <span class="stack-item">React</span>
+      <span class="stack-item">Astro</span>
+      <span class="stack-item">Claude API</span>
+      <span class="stack-item">Notion API</span>
+      <span class="stack-item">Upwork API</span>
+    </div>
+  </div>
+</SiteLayout>
