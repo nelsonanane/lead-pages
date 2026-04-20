@@ -41,6 +41,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
     .status-badge.live::before { content: '●'; animation: blink 1.4s step-end infinite; color: var(--amber); }
     .status-badge.done { color: rgba(100,230,100,0.85); }
     .status-badge.done::before { content: '■'; color: rgba(100,230,100,0.85); }
+    .case-section-heading { font-size: clamp(1.6rem, 3.5vw, 2.4rem) !important; font-weight: 700; color: var(--ink); margin-bottom: 10px; line-height: 1.1; }
     .case-card h3 { font-size: 0.92rem; font-weight: 700; color: var(--ink); margin-bottom: 8px; line-height: 1.2; }
     .case-card p { font-size: 0.63rem; color: var(--ink-dim); line-height: 1.72; margin-bottom: 14px; }
     .case-items-label { font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber-dim); margin-bottom: 6px; }
@@ -112,7 +113,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
   <!-- Case Studies -->
   <div class="section">
     <p class="sec-label">CASE STUDIES // LIVE BUILDS</p>
-    <h2>Currently in the lab.</h2>
+    <h2 class="case-section-heading">Currently in the lab.</h2>
     <p class="section-sub">Real systems. Real businesses. Not finished &mdash; but running.</p>
     <div class="case-grid">
       <div class="case-card">
@@ -122,7 +123,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
         <p class="case-items-label">WHAT AI HANDLES</p>
         <ul class="case-items">
           <li>Guest &amp; tenant communication &mdash; check-in, FAQs, requests</li>
-          <li>Cleaner + contractor hiring via Upwork</li>
+          <li>Cleaner + contractor hiring via Thumbtack &amp; Angi</li>
           <li>Maintenance &amp; repair request routing</li>
           <li>Review responses written + posted automatically</li>
         </ul>
