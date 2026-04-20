@@ -1,0 +1,105 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allResources = await getCollection('resources');
+const resources = allResources.sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
+---
+
+<SiteLayout title="Free Resources — nelsonkwesi.xyz" activeNav="free-resources">
+  <style>
+    .page-header {
+      padding: 56px 0 44px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 400px; height: 260px;
+      background: radial-gradient(ellipse at top left, rgba(240,192,48,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .eyebrow {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .eyebrow::before { content: ''; display: block; width: 16px; height: 1px; background: var(--amber); flex-shrink: 0; }
+    .page-header h1 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 10px;
+      text-shadow: 2px 3px 0 rgba(0,0,0,0.5);
+    }
+    .page-header p { font-size: 0.72rem; color: var(--ink-dim); line-height: 1.75; }
+
+    .resources-list { padding: 40px 0 80px; }
+    .empty { font-size: 0.72rem; color: var(--ink-dim); padding: 40px 0; }
+
+    .resource-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+    }
+    .resource-item:last-child { border-bottom: 1px solid var(--border); }
+    .resource-item:hover .resource-title { color: var(--amber); }
+    .resource-item:hover .resource-arrow { color: var(--amber); transform: translateX(4px); }
+    .resource-item:focus-visible { outline: 1px solid var(--amber); outline-offset: 2px; }
+
+    .resource-title { font-size: 0.92rem; font-weight: 700; margin-bottom: 5px; transition: color 0.2s; }
+    .resource-desc { font-size: 0.65rem; color: var(--ink-dim); line-height: 1.65; max-width: 520px; }
+    .resource-meta {
+      font-size: 0.6rem;
+      color: var(--amber);
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .resource-arrow { display: inline-block; transition: transform 0.2s, color 0.2s; }
+
+    @media (max-width: 600px) {
+      .resource-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+  </style>
+
+  <div class="page-header">
+    <p class="eyebrow">Free Resources</p>
+    <h1>Guides, cheatsheets,<br/>and checklists.</h1>
+    <p>Practical tools to help you use AI to build income and save time — no fluff.</p>
+  </div>
+
+  <div class="resources-list">
+    {resources.length === 0 ? (
+      <p class="empty">No resources yet. Check back soon.</p>
+    ) : (
+      resources.map((r) => (
+        <a href={`/${r.slug}`} class="resource-item" aria-label={r.data.title}>
+          <div>
+            <h2 class="resource-title">{r.data.title}</h2>
+            <p class="resource-desc">{r.data.previewDescription}</p>
+          </div>
+          <span class="resource-meta">
+            {r.data.pages}p {r.data.type}
+            <span class="resource-arrow" aria-hidden="true">&rarr;</span>
+          </span>
+        </a>
+      ))
+    )}
+  </div>
+</SiteLayout>
