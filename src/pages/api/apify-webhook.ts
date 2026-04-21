@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { findListingByUrl, createListing, updateLastSeen } from '../../lib/fb-leads';
+import { getExistingUrlMap, createListing, updateLastSeen } from '../../lib/fb-leads';
 
 interface ApifyWebhookPayload {
   eventType: string;
@@ -114,6 +114,9 @@ export const POST: APIRoute = async ({ request }) => {
     return true;
   });
 
+  // One bulk query to get all existing URLs — avoids N per-listing lookups
+  const existingMap = await getExistingUrlMap();
+
   let created = 0;
   let updated = 0;
   let errors = 0;
@@ -122,10 +125,10 @@ export const POST: APIRoute = async ({ request }) => {
   for (let i = 0; i < unique.length; i += BATCH) {
     const results = await Promise.allSettled(
       unique.slice(i, i + BATCH).map(async item => {
-        const url = item.url ?? item.listingUrl!;
-        const existing = await findListingByUrl(url);
-        if (existing) {
-          await updateLastSeen(existing.id);
+        const url = (item.url ?? item.listingUrl)!;
+        const pageId = existingMap.get(url);
+        if (pageId) {
+          await updateLastSeen(pageId);
           return 'updated';
         }
         await createListing({

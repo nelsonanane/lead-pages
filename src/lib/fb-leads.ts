@@ -74,12 +74,21 @@ function pageToLead(page: any): NotionLead {
   };
 }
 
-export async function findListingByUrl(url: string): Promise<NotionLead | null> {
-  const response = await notionFetch(`/databases/${getDbId()}/query`, 'POST', {
-    filter: { property: 'URL', url: { equals: url } },
-  });
-  if (response.results.length === 0) return null;
-  return pageToLead(response.results[0]);
+export async function getExistingUrlMap(): Promise<Map<string, string>> {
+  const map = new Map<string, string>();
+  let cursor: string | undefined;
+  do {
+    const response = await notionFetch(`/databases/${getDbId()}/query`, 'POST', {
+      page_size: 100,
+      ...(cursor ? { start_cursor: cursor } : {}),
+    });
+    for (const page of response.results) {
+      const url = page.properties.URL?.url;
+      if (url) map.set(url, page.id);
+    }
+    cursor = response.has_more ? (response.next_cursor ?? undefined) : undefined;
+  } while (cursor);
+  return map;
 }
 
 export async function createListing(listing: FbListing): Promise<void> {
