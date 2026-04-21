@@ -10,13 +10,12 @@ interface ApifyWebhookPayload {
 }
 
 interface ApifyListing {
-  title?: string;
-  name?: string;
-  price?: number | string;
+  marketplace_listing_title?: string;
+  custom_title?: string;
+  listing_price?: { amount?: string; formatted_amount?: string };
   location?: unknown;
   url?: string;
   listingUrl?: string;
-  bedrooms?: number | string;
 }
 
 async function fetchDatasetItems(datasetId: string, token: string): Promise<ApifyListing[]> {
@@ -35,9 +34,11 @@ export function parsePrice(price: number | string | undefined): number | null {
   return isNaN(parsed) ? null : parsed;
 }
 
-export function parseBedrooms(val: number | string | undefined): number | null {
-  if (val == null) return null;
-  const n = parseInt(String(val), 10);
+export function parseBedrooms(val: string | undefined): number | null {
+  if (!val) return null;
+  const match = val.match(/(\d+)\s*bed/i);
+  if (!match) return null;
+  const n = parseInt(match[1], 10);
   return isNaN(n) ? null : n;
 }
 
@@ -129,11 +130,12 @@ export const POST: APIRoute = async ({ request }) => {
         await updateLastSeen(pageId);
         updated++;
       } else {
+        const titleStr = item.marketplace_listing_title ?? item.custom_title ?? 'Rental Listing';
         await createListing({
-          title: item.title ?? item.name ?? 'Rental Listing',
+          title: titleStr,
           url,
-          price: parsePrice(item.price),
-          bedrooms: parseBedrooms(item.bedrooms),
+          price: parsePrice(item.listing_price?.amount ?? item.listing_price?.formatted_amount),
+          bedrooms: parseBedrooms(item.custom_title ?? item.marketplace_listing_title),
           location: parseLocation(item.location),
         });
         created++;
