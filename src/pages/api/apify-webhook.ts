@@ -21,7 +21,7 @@ interface ApifyListing {
 
 async function fetchDatasetItems(datasetId: string, token: string): Promise<ApifyListing[]> {
   const res = await fetch(
-    `https://api.apify.com/v2/datasets/${datasetId}/items?token=${token}&format=json`
+    `https://api.apify.com/v2/datasets/${datasetId}/items?token=${token}&format=json&limit=100`
   );
   if (!res.ok) throw new Error(`Apify dataset fetch failed: ${res.status}`);
   return res.json();
@@ -105,19 +105,29 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
+  // Deduplicate by URL before hitting Notion
+  const seen = new Set<string>();
+  const unique = listings.filter(item => {
+    const url = item.url ?? item.listingUrl;
+    if (!url || seen.has(url)) return false;
+    seen.add(url);
+    return true;
+  });
+
   let created = 0;
   let updated = 0;
   let errors = 0;
 
-  for (const item of listings) {
-    const url = item.url ?? item.listingUrl;
-    if (!url) continue;
-    try {
-      const existing = await findListingByUrl(url);
-      if (existing) {
-        await updateLastSeen(existing.id);
-        updated++;
-      } else {
+  const BATCH = 10;
+  for (let i = 0; i < unique.length; i += BATCH) {
+    const results = await Promise.allSettled(
+      unique.slice(i, i + BATCH).map(async item => {
+        const url = item.url ?? item.listingUrl!;
+        const existing = await findListingByUrl(url);
+        if (existing) {
+          await updateLastSeen(existing.id);
+          return 'updated';
+        }
         await createListing({
           title: item.title ?? item.name ?? 'Rental Listing',
           url,
@@ -125,11 +135,12 @@ export const POST: APIRoute = async ({ request }) => {
           bedrooms: parseBedrooms(item.bedrooms),
           location: parseLocation(item.location),
         });
-        created++;
-      }
-    } catch (err) {
-      console.error('Error processing listing', url, err);
-      errors++;
+        return 'created';
+      })
+    );
+    for (const r of results) {
+      if (r.status === 'fulfilled') r.value === 'created' ? created++ : updated++;
+      else { console.error('Listing error:', r.reason); errors++; }
     }
   }
 
