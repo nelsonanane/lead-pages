@@ -3,7 +3,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 ---
 
 <SiteLayout
-  title="Nelson Kwesi — Stop repeating yourself. Start thinking about the business."
+  title="Nelson Kwesi — The work that repeats should disappear. What's left is the work that matters."
   description="Nine years writing software. Now building companies that handle the repetition so business owners can focus on what actually matters."
   activeNav="home"
 >
@@ -76,12 +76,60 @@ import SiteLayout from '../layouts/SiteLayout.astro';
     .audit-nudge p { font-size: 0.7rem; color: var(--ink-dim); line-height: 1.7; max-width: 480px; margin: 0; }
     .audit-nudge p strong { color: var(--ink); }
 
+    /* Terminal panel */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: center;
+    }
+    .hero-left { padding: 28px 28px 24px; }
+    .terminal-panel {
+      border-left: 1px solid var(--border);
+      padding: 28px 24px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: rgba(240,192,48,0.015);
+    }
+    .term-bar {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 20px; padding-bottom: 12px;
+      border-bottom: 1px solid rgba(240,192,48,0.1);
+    }
+    .term-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); opacity: 0.4; }
+    .term-dot.on { opacity: 1; animation: blink 1.4s step-end infinite; }
+    .term-title { font-size: 0.44rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber-dim); }
+    .term-body { font-family: var(--font); font-size: 0.62rem; line-height: 2; }
+    .term-row { display: flex; align-items: center; gap: 0; overflow: hidden; }
+    .term-label { color: var(--ink-faint); flex-shrink: 0; min-width: 0; }
+    .term-label span { color: rgba(240,192,48,0.45); margin-right: 6px; }
+    .term-dots { flex: 1; color: rgba(240,192,48,0.12); letter-spacing: 0.06em; overflow: hidden; white-space: nowrap; }
+    .term-status {
+      font-size: 0.5rem; letter-spacing: 0.14em; text-transform: uppercase;
+      flex-shrink: 0; margin-left: 8px; opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .term-status.done { color: rgba(100,220,100,0.85); opacity: 1; }
+    .term-status.processing { color: var(--amber); opacity: 1; }
+    .term-divider { border: none; border-top: 1px solid rgba(240,192,48,0.07); margin: 10px 0; }
+    .term-output {
+      font-size: 0.6rem; color: var(--amber); letter-spacing: 0.04em;
+      opacity: 0; transition: opacity 0.5s ease;
+      margin-top: 2px;
+    }
+    .term-output.visible { opacity: 1; }
+    .term-cursor { display: inline-block; width: 7px; height: 0.65em; background: var(--amber); vertical-align: middle; animation: blink 1s step-end infinite; margin-left: 3px; }
+
     /* About teaser */
     .about-inner { max-width: 600px; }
     .about-inner p { font-size: 0.7rem; color: var(--ink-dim); line-height: 1.85; margin-bottom: 12px; }
     .about-inner p:last-of-type { margin-bottom: 0; }
 
-    @media (max-width: 640px) {
+    @media (max-width: 700px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .terminal-panel { border-left: none; border-top: 1px solid var(--border); }
       .case-grid { grid-template-columns: 1fr; }
       .audit-nudge { flex-direction: column; align-items: flex-start; }
     }
@@ -91,22 +139,97 @@ import SiteLayout from '../layouts/SiteLayout.astro';
   <div class="hero">
     <div class="box">
       <span class="box-label">INIT //</span>
-      <div class="hero-inner">
-        <p class="sys-line">Software Engineer &middot; Builder &middot; Building in Public</p>
-        <h1>Stop repeating yourself.<br/>Start thinking about <em>the business.</em></h1>
-        <p class="hero-desc">
-          Nine years writing software. Backends, banking infrastructure, systems that had to work.
-          Now building my own companies from scratch, solving the problems I see every day,
-          and documenting every step so you can see exactly what works and what doesn't.
-        </p>
-        <div class="hero-links">
-          <a class="btn" href="https://youtube.com/@nelsonkwesi" target="_blank" rel="noopener">Follow the Builds</a>
-          <a class="hero-link-secondary" href="/about">About Nelson &rarr;</a>
+      <div class="hero-grid">
+
+        <!-- Left: copy -->
+        <div class="hero-left">
+          <p class="sys-line">Software Engineer &middot; Builder &middot; Building in Public</p>
+          <h1>The work that repeats<br/>should <em>disappear.</em></h1>
+          <p class="hero-desc">
+            What's left is the work that matters.<br/>
+            Nine years writing software. Now building companies that handle
+            the repetition, so the people running them can finally think about the business again.
+          </p>
+          <div class="hero-links">
+            <a class="btn" href="https://youtube.com/@nelsonkwesi" target="_blank" rel="noopener">Follow the Builds</a>
+            <a class="hero-link-secondary" href="/about">About Nelson &rarr;</a>
+          </div>
         </div>
+
+        <!-- Right: retro terminal -->
+        <div class="terminal-panel">
+          <div class="term-bar">
+            <div class="term-dot on"></div>
+            <div class="term-dot"></div>
+            <div class="term-dot"></div>
+            <span class="term-title">repetition.exe &nbsp;// running</span>
+          </div>
+          <div class="term-body" id="term-body">
+            <div class="term-row" id="row-0">
+              <span class="term-label"><span>&gt;</span>follow-up emails</span>
+              <span class="term-dots">&nbsp;......................&nbsp;</span>
+              <span class="term-status" id="st-0">HANDLED</span>
+            </div>
+            <div class="term-row" id="row-1">
+              <span class="term-label"><span>&gt;</span>booking confirmations</span>
+              <span class="term-dots">&nbsp;................&nbsp;</span>
+              <span class="term-status" id="st-1">HANDLED</span>
+            </div>
+            <div class="term-row" id="row-2">
+              <span class="term-label"><span>&gt;</span>review responses</span>
+              <span class="term-dots">&nbsp;...................&nbsp;</span>
+              <span class="term-status" id="st-2">HANDLED</span>
+            </div>
+            <div class="term-row" id="row-3">
+              <span class="term-label"><span>&gt;</span>missed call callbacks</span>
+              <span class="term-dots">&nbsp;...............&nbsp;</span>
+              <span class="term-status" id="st-3">HANDLED</span>
+            </div>
+            <div class="term-row" id="row-4">
+              <span class="term-label"><span>&gt;</span>daily admin reports</span>
+              <span class="term-dots">&nbsp;.................&nbsp;</span>
+              <span class="term-status" id="st-4">HANDLED</span>
+            </div>
+            <hr class="term-divider"/>
+            <div class="term-output" id="term-output">
+              &gt; your team is free to think<span class="term-cursor"></span>
+            </div>
+          </div>
+        </div>
+
       </div>
       <span class="vhs-stamp">CH:01 &nbsp;&#9654; PLAY</span>
     </div>
   </div>
+
+  <script is:inline>
+    (function () {
+      const statuses = [0,1,2,3,4].map(i => document.getElementById('st-' + i));
+      const output   = document.getElementById('term-output');
+      const DELAY    = 520;
+
+      function reset() {
+        statuses.forEach(s => { s.className = 'term-status processing'; s.textContent = '...'; });
+        output.classList.remove('visible');
+      }
+
+      function run() {
+        reset();
+        statuses.forEach((s, i) => {
+          setTimeout(() => {
+            s.textContent = 'HANDLED';
+            s.className = 'term-status done';
+            if (i === statuses.length - 1) {
+              setTimeout(() => { output.classList.add('visible'); }, 400);
+              setTimeout(run, 3200);
+            }
+          }, (i + 1) * DELAY);
+        });
+      }
+
+      run();
+    })();
+  </script>
 
   <!-- The Problems -->
   <div class="section">
