@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 const mockCreate = vi.fn().mockResolvedValue({
   content: [{ type: 'text', text: 'Hi there, this is Nelson with Kwesi Holdings.' }],
@@ -20,6 +20,10 @@ beforeEach(() => {
 });
 
 describe('generatePitch', () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
   it('throws when ANTHROPIC_API_KEY is missing', async () => {
     const { generatePitch } = await import('./pitch');
     // No env var set — should throw

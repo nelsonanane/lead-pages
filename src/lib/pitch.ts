@@ -1,6 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 
-interface ListingContext {
+export interface ListingContext {
   price: number | null;
   bedrooms: number | null;
   location: string;
