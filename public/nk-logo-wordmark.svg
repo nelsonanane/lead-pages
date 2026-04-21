@@ -1,0 +1,10 @@
+<svg width="348" height="64" viewBox="0 0 348 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@700&amp;display=swap');
+    .cursor { animation: blink 1s step-end infinite; }
+    @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+  </style>
+  <rect width="348" height="64" fill="#080A06"/>
+  <text x="8" y="48" font-family="'Kode Mono', 'Courier New', monospace" font-weight="700" font-size="48" fill="#F0C030">nelsonkwesi</text>
+  <rect class="cursor" x="324" y="8" width="14" height="44" fill="#F0C030"/>
+</svg>
