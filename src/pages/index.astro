@@ -9,7 +9,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 >
   <style>
     /* Hero */
-    .hero { padding: 52px 0 44px; border-bottom: 1px solid var(--border); position: relative; }
+    .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); position: relative; }
     .hero::after {
       content: '';
       position: absolute; left: 0; right: 0; top: 28%; height: 2px;
@@ -36,9 +36,9 @@ import SiteLayout from '../layouts/SiteLayout.astro';
     .vhs-stamp { position: absolute; bottom: 14px; right: 18px; font-size: 0.52rem; color: var(--amber-dim); letter-spacing: 0.08em; opacity: 0.55; }
 
     /* Problems */
-    .problem-list { margin-top: 24px; display: flex; flex-direction: column; gap: 0; }
+    .problem-list { margin-top: 32px; display: flex; flex-direction: column; gap: 0; }
     .problem-item {
-      padding: 18px 20px;
+      padding: 22px 20px;
       border-top: 1px solid rgba(240,192,48,0.08);
       font-size: 0.82rem; color: var(--ink-dim); line-height: 1.5;
       display: flex; gap: 14px; align-items: baseline;
@@ -46,14 +46,14 @@ import SiteLayout from '../layouts/SiteLayout.astro';
     .problem-item:last-of-type { border-bottom: 1px solid rgba(240,192,48,0.08); }
     .problem-item::before { content: '"'; color: var(--amber); font-size: 1.4rem; line-height: 1; flex-shrink: 0; opacity: 0.6; }
     .problem-note {
-      margin-top: 24px; font-size: 0.68rem; color: var(--ink-dim); line-height: 1.75;
+      margin-top: 36px; font-size: 0.68rem; color: var(--ink-dim); line-height: 1.75;
       max-width: 560px; padding-left: 4px;
     }
     .problem-note strong { color: var(--ink); }
 
     /* Case studies */
     .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-top: 24px; }
-    .case-card { background: var(--bg); padding: 24px; }
+    .case-card { background: var(--bg); padding: 32px 28px; }
     .status-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; }
     .status-badge.live { color: var(--amber); }
     .status-badge.live::before { content: '●'; animation: blink 1.4s step-end infinite; color: var(--amber); }
@@ -69,6 +69,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 
     /* Audit nudge — soft, not dominant */
     .audit-nudge {
+      margin-top: 32px;
       padding: 28px;
       border-top: 1px solid var(--border);
       display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
@@ -124,8 +125,9 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 
     /* About teaser */
     .about-inner { max-width: 600px; }
-    .about-inner p { font-size: 0.7rem; color: var(--ink-dim); line-height: 1.85; margin-bottom: 12px; }
+    .about-inner p { font-size: 0.7rem; color: var(--ink-dim); line-height: 1.85; margin-bottom: 18px; }
     .about-inner p:last-of-type { margin-bottom: 0; }
+    .about-inner .socials { margin-top: 24px; }
 
     @media (max-width: 700px) {
       .hero-grid { grid-template-columns: 1fr; }
@@ -249,16 +251,16 @@ import SiteLayout from '../layouts/SiteLayout.astro';
     </p>
   </div>
 
-  <!-- Live Builds -->
+  <!-- Case Studies -->
   <div class="section">
-    <p class="sec-label">LIVE BUILDS // IN THE LAB</p>
-    <h2 class="case-section-heading">Problems we're solving, live.</h2>
-    <p class="section-sub">Two real businesses. Built from scratch. Documented publicly.</p>
+    <p class="sec-label">CASE STUDIES // BUSINESSES WE HAVE AUTOMATED</p>
+    <h2 class="case-section-heading">What it looks like when ops stop being someone's job.</h2>
+    <p class="section-sub">Two examples. Here is what stopped being manual.</p>
     <div class="case-grid">
       <div class="case-card">
-        <span class="status-badge live">IN PROGRESS</span>
+        <span class="status-badge live">PROPERTY MANAGEMENT</span>
         <h3>The Rental That<br/>Runs Overnight</h3>
-        <p>Guests message at midnight. Cleaners need scheduling. Reviews pile up. This rental business handles all of it without a property manager on call. Human oversight stays. The repetitive ops are gone.</p>
+        <p>Guests message at midnight. Cleaners need scheduling. Reviews pile up. A system now handles all of it without anyone on call. Human oversight stays. The daily ops take care of themselves.</p>
         <p class="case-items-label">WHAT STOPPED BEING MANUAL</p>
         <ul class="case-items">
           <li>Guest and tenant messages answered 24/7, check-ins included</li>
@@ -268,26 +270,33 @@ import SiteLayout from '../layouts/SiteLayout.astro';
         </ul>
       </div>
       <div class="case-card">
-        <span class="status-badge done">LIVE SYSTEM</span>
+        <span class="status-badge done">CONTENT BUSINESS</span>
         <h3>One Topic In.<br/>A Week of Content Out.</h3>
-        <p>One topic goes in. Scripts, lead magnets, and posts come out. Every format. Every platform. Nobody staring at a blank page. A content team used to take a week to do what this does in an hour.</p>
+        <p>One topic goes in. Scripts, lead magnets, and posts come out for every platform. Nobody staring at a blank page. What used to take a team a week now runs in an hour.</p>
         <p class="case-items-label">WHAT STOPPED BEING MANUAL</p>
         <ul class="case-items">
           <li>Finding what the audience actually complains about, pulled fresh every 30 days</li>
           <li>Scripts with 3 hook variations so the best one gets filmed</li>
           <li>PDF lead magnets generated from the best-performing scripts</li>
-          <li>Full Notion pipeline from idea to posted, nothing tracked by hand</li>
+          <li>Full pipeline from idea to posted, nothing tracked by hand</li>
           <li>Top performers auto-saved to an inspiration library for future use</li>
           <li>Blog, carousel, and repurposed formats output in the same run</li>
         </ul>
       </div>
     </div>
 
-    <!-- Soft audit nudge — lives under builds, not its own section -->
+    <!-- What else can be automated -->
+    <div class="problem-note" style="margin-top:28px; padding: 20px; border: 1px solid rgba(240,192,48,0.1);">
+      <strong>These are two examples. There are thousands more.</strong> Follow-up sequences that never get sent. Quotes that take three days to go out. Leads that fall through because nobody remembered to call back. Invoices chased manually every month. Onboarding docs emailed one by one. Appointment reminders that depend on someone remembering.
+      <br/><br/>
+      Whatever your team keeps doing every week because there is no system for it yet, that is exactly what we build.
+    </div>
+
+    <!-- Soft audit nudge -->
     <div class="audit-nudge">
       <p>
-        <strong>Want this for your own business?</strong> We do one-session audits where
-        we find the biggest time drain in your operations and build the fix while you watch.
+        <strong>Want to see what this looks like in your business?</strong> One session.
+        We find the biggest time drain and build the fix while you watch.
         30 minutes. $500. You leave with something working.
       </p>
       <a class="btn" href="/ai-audit">Book a Session &rarr;</a>
