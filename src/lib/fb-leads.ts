@@ -1,4 +1,4 @@
-import { Client } from '@notionhq/client';
+const NOTION_BASE = 'https://api.notion.com/v1';
 
 export interface FbListing {
   title: string;
@@ -26,16 +26,38 @@ export function daysAgo(dateStr: string): number {
   return Math.floor((now - then) / (1000 * 60 * 60 * 24));
 }
 
-function getClient(): Client {
+function getApiKey(): string {
   const apiKey = import.meta.env.NOTION_API_KEY;
   if (!apiKey) throw new Error('NOTION_API_KEY not set');
-  return new Client({ auth: apiKey });
+  return apiKey;
 }
 
 function getDbId(): string {
   const dbId = import.meta.env.NOTION_FB_LEADS_DB_ID;
   if (!dbId) throw new Error('NOTION_FB_LEADS_DB_ID not set');
   return dbId;
+}
+
+function notionHeaders(apiKey: string) {
+  return {
+    'Authorization': `Bearer ${apiKey}`,
+    'Content-Type': 'application/json',
+    'Notion-Version': '2022-06-28',
+  };
+}
+
+async function notionFetch(path: string, method: string, body?: unknown): Promise<any> {
+  const apiKey = getApiKey();
+  const res = await fetch(`${NOTION_BASE}${path}`, {
+    method,
+    headers: notionHeaders(apiKey),
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Notion API error ${res.status}: ${text}`);
+  }
+  return res.json();
 }
 
 function pageToLead(page: any): NotionLead {
@@ -53,9 +75,7 @@ function pageToLead(page: any): NotionLead {
 }
 
 export async function findListingByUrl(url: string): Promise<NotionLead | null> {
-  const notion = getClient();
-  const response = await notion.databases.query({
-    database_id: getDbId(),
+  const response = await notionFetch(`/databases/${getDbId()}/query`, 'POST', {
     filter: { property: 'URL', url: { equals: url } },
   });
   if (response.results.length === 0) return null;
@@ -63,9 +83,8 @@ export async function findListingByUrl(url: string): Promise<NotionLead | null> 
 }
 
 export async function createListing(listing: FbListing): Promise<void> {
-  const notion = getClient();
   const today = new Date().toISOString().split('T')[0];
-  await notion.pages.create({
+  await notionFetch('/pages', 'POST', {
     parent: { database_id: getDbId() },
     properties: {
       Title: { title: [{ text: { content: listing.title } }] },
@@ -81,23 +100,19 @@ export async function createListing(listing: FbListing): Promise<void> {
 }
 
 export async function updateLastSeen(pageId: string): Promise<void> {
-  const notion = getClient();
   const today = new Date().toISOString().split('T')[0];
-  await notion.pages.update({
-    page_id: pageId,
+  await notionFetch(`/pages/${pageId}`, 'PATCH', {
     properties: { 'Last Seen': { date: { start: today } } },
   });
 }
 
 export async function getTrackingListings(): Promise<NotionLead[]> {
-  const notion = getClient();
   const results: any[] = [];
   let cursor: string | undefined;
   do {
-    const response = await notion.databases.query({
-      database_id: getDbId(),
+    const response = await notionFetch(`/databases/${getDbId()}/query`, 'POST', {
       filter: { property: 'Status', select: { equals: 'Tracking' } },
-      start_cursor: cursor,
+      ...(cursor ? { start_cursor: cursor } : {}),
     });
     results.push(...response.results);
     cursor = response.has_more ? (response.next_cursor ?? undefined) : undefined;
@@ -106,9 +121,7 @@ export async function getTrackingListings(): Promise<NotionLead[]> {
 }
 
 export async function savePitchAndFlip(pageId: string, pitch: string): Promise<void> {
-  const notion = getClient();
-  await notion.pages.update({
-    page_id: pageId,
+  await notionFetch(`/pages/${pageId}`, 'PATCH', {
     properties: {
       Pitch: { rich_text: [{ text: { content: pitch.slice(0, 1990) } }] },
       Status: { select: { name: 'Ready to Pitch' } },
