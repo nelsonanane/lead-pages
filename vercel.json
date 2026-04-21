@@ -5,9 +5,5 @@
       "path": "/api/daily-check",
       "schedule": "0 13 * * *"
     }
-  ],
-  "functions": {
-    "api/apify-webhook": { "maxDuration": 60 },
-    "api/daily-check": { "maxDuration": 60 }
-  }
+  ]
 }
