@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
 
 export interface ListingContext {
   price: number | null;
@@ -7,10 +7,10 @@ export interface ListingContext {
 }
 
 export async function generatePitch(listing: ListingContext): Promise<string> {
-  const apiKey = import.meta.env.ANTHROPIC_API_KEY;
-  if (!apiKey) throw new Error('ANTHROPIC_API_KEY not set');
+  const apiKey = import.meta.env.OPENAI_API_KEY;
+  if (!apiKey) throw new Error('OPENAI_API_KEY not set');
 
-  const client = new Anthropic({ apiKey });
+  const client = new OpenAI({ apiKey });
 
   const bedroomStr = listing.bedrooms ? `${listing.bedrooms}-bedroom` : 'your';
   const locationStr = listing.location || 'Charlotte';
@@ -37,13 +37,13 @@ The message must:
 
 No em dashes. Under 200 words. Direct and warm.`;
 
-  const response = await client.messages.create({
-    model: 'claude-sonnet-4-6',
+  const response = await client.chat.completions.create({
+    model: 'gpt-4o-mini',
     max_tokens: 400,
     messages: [{ role: 'user', content: prompt }],
   });
 
-  const content = response.content[0];
-  if (content.type !== 'text') throw new Error('Unexpected Claude response type');
-  return content.text.trim();
+  const text = response.choices[0]?.message?.content;
+  if (!text) throw new Error('Empty response from OpenAI');
+  return text.trim();
 }
