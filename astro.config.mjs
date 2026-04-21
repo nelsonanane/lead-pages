@@ -7,4 +7,9 @@ export default defineConfig({
   output: 'server',
   adapter: vercel(),
   integrations: [tailwind()],
+  vite: {
+    ssr: {
+      external: ['@notionhq/client'],
+    },
+  },
 });
