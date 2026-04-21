@@ -21,7 +21,7 @@ interface ApifyListing {
 
 async function fetchDatasetItems(datasetId: string, token: string): Promise<ApifyListing[]> {
   const res = await fetch(
-    `https://api.apify.com/v2/datasets/${datasetId}/items?token=${token}&format=json&limit=100`
+    `https://api.apify.com/v2/datasets/${datasetId}/items?token=${token}&format=json&limit=20`
   );
   if (!res.ok) throw new Error(`Apify dataset fetch failed: ${res.status}`);
   return res.json();
@@ -121,16 +121,14 @@ export const POST: APIRoute = async ({ request }) => {
   let updated = 0;
   let errors = 0;
 
-  const BATCH = 10;
-  for (let i = 0; i < unique.length; i += BATCH) {
-    const results = await Promise.allSettled(
-      unique.slice(i, i + BATCH).map(async item => {
-        const url = (item.url ?? item.listingUrl)!;
-        const pageId = existingMap.get(url);
-        if (pageId) {
-          await updateLastSeen(pageId);
-          return 'updated';
-        }
+  for (const item of unique) {
+    const url = (item.url ?? item.listingUrl)!;
+    try {
+      const pageId = existingMap.get(url);
+      if (pageId) {
+        await updateLastSeen(pageId);
+        updated++;
+      } else {
         await createListing({
           title: item.title ?? item.name ?? 'Rental Listing',
           url,
@@ -138,12 +136,11 @@ export const POST: APIRoute = async ({ request }) => {
           bedrooms: parseBedrooms(item.bedrooms),
           location: parseLocation(item.location),
         });
-        return 'created';
-      })
-    );
-    for (const r of results) {
-      if (r.status === 'fulfilled') r.value === 'created' ? created++ : updated++;
-      else { console.error('Listing error:', r.reason); errors++; }
+        created++;
+      }
+    } catch (err) {
+      console.error('Listing error:', url, err);
+      errors++;
     }
   }
 

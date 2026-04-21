@@ -7,7 +7,7 @@
     }
   ],
   "functions": {
-    "src/pages/api/apify-webhook.ts": { "maxDuration": 60 },
-    "src/pages/api/daily-check.ts": { "maxDuration": 60 }
+    "api/apify-webhook": { "maxDuration": 60 },
+    "api/daily-check": { "maxDuration": 60 }
   }
 }
