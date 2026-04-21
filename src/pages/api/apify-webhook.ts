@@ -13,7 +13,7 @@ interface ApifyListing {
   title?: string;
   name?: string;
   price?: number | string;
-  location?: string;
+  location?: unknown;
   url?: string;
   listingUrl?: string;
   bedrooms?: number | string;
@@ -39,6 +39,19 @@ export function parseBedrooms(val: number | string | undefined): number | null {
   if (val == null) return null;
   const n = parseInt(String(val), 10);
   return isNaN(n) ? null : n;
+}
+
+export function parseLocation(val: unknown): string {
+  if (!val) return '';
+  if (typeof val === 'string') return val;
+  if (typeof val === 'object' && val !== null) {
+    const obj = val as Record<string, any>;
+    const rg = obj.reverse_geocode ?? obj;
+    const city = rg.city ?? '';
+    const state = rg.state ?? '';
+    return [city, state].filter(Boolean).join(', ');
+  }
+  return '';
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -110,7 +123,7 @@ export const POST: APIRoute = async ({ request }) => {
           url,
           price: parsePrice(item.price),
           bedrooms: parseBedrooms(item.bedrooms),
-          location: item.location ?? '',
+          location: parseLocation(item.location),
         });
         created++;
       }
