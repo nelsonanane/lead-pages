@@ -91,11 +91,18 @@ export async function updateLastSeen(pageId: string): Promise<void> {
 
 export async function getTrackingListings(): Promise<NotionLead[]> {
   const notion = getClient();
-  const response = await notion.databases.query({
-    database_id: getDbId(),
-    filter: { property: 'Status', select: { equals: 'Tracking' } },
-  });
-  return (response.results as any[]).map(pageToLead);
+  const results: any[] = [];
+  let cursor: string | undefined;
+  do {
+    const response = await notion.databases.query({
+      database_id: getDbId(),
+      filter: { property: 'Status', select: { equals: 'Tracking' } },
+      start_cursor: cursor,
+    });
+    results.push(...response.results);
+    cursor = response.has_more ? (response.next_cursor ?? undefined) : undefined;
+  } while (cursor);
+  return results.map(pageToLead);
 }
 
 export async function savePitchAndFlip(pageId: string, pitch: string): Promise<void> {
@@ -103,7 +110,7 @@ export async function savePitchAndFlip(pageId: string, pitch: string): Promise<v
   await notion.pages.update({
     page_id: pageId,
     properties: {
-      Pitch: { rich_text: [{ text: { content: pitch } }] },
+      Pitch: { rich_text: [{ text: { content: pitch.slice(0, 1990) } }] },
       Status: { select: { name: 'Ready to Pitch' } },
     },
   });

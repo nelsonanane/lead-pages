@@ -8,14 +8,17 @@ export function isStale({ firstSeen, pitch }: { firstSeen: string; pitch: string
 
 export const GET: APIRoute = async ({ request }) => {
   const cronSecret = import.meta.env.CRON_SECRET;
-  if (cronSecret) {
-    const auth = request.headers.get('authorization');
-    if (auth !== `Bearer ${cronSecret}`) {
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
+  if (!cronSecret) {
+    return new Response(JSON.stringify({ error: 'Server misconfiguration: CRON_SECRET not set' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  if (request.headers.get('authorization') !== `Bearer ${cronSecret}`) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   const tracking = await getTrackingListings();

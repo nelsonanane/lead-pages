@@ -26,9 +26,13 @@ export function parseBedrooms(val: number | string | undefined): number | null {
 
 export const POST: APIRoute = async ({ request }) => {
   const secret = import.meta.env.APIFY_WEBHOOK_SECRET;
-  const incoming = request.headers.get('x-apify-webhook-secret');
-
-  if (secret && incoming !== secret) {
+  if (!secret) {
+    return new Response(JSON.stringify({ error: 'Server misconfiguration: APIFY_WEBHOOK_SECRET not set' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  if (request.headers.get('x-apify-webhook-secret') !== secret) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
