@@ -1,13 +1,30 @@
 import type { APIRoute } from 'astro';
 import { findListingByUrl, createListing, updateLastSeen } from '../../lib/fb-leads';
 
+interface ApifyWebhookPayload {
+  eventType: string;
+  eventData: {
+    actorRunId: string;
+    defaultDatasetId: string;
+  };
+}
+
 interface ApifyListing {
   title?: string;
   name?: string;
   price?: number | string;
   location?: string;
-  url: string;
+  url?: string;
+  listingUrl?: string;
   bedrooms?: number | string;
+}
+
+async function fetchDatasetItems(datasetId: string, token: string): Promise<ApifyListing[]> {
+  const res = await fetch(
+    `https://api.apify.com/v2/datasets/${datasetId}/items?token=${token}&format=json`
+  );
+  if (!res.ok) throw new Error(`Apify dataset fetch failed: ${res.status}`);
+  return res.json();
 }
 
 export function parsePrice(price: number | string | undefined): number | null {
@@ -39,9 +56,17 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  let listings: ApifyListing[];
+  const apifyToken = import.meta.env.APIFY_API_TOKEN;
+  if (!apifyToken) {
+    return new Response(JSON.stringify({ error: 'Server misconfiguration: APIFY_API_TOKEN not set' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  let payload: ApifyWebhookPayload;
   try {
-    listings = await request.json();
+    payload = await request.json();
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
       status: 400,
@@ -49,9 +74,20 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  if (!Array.isArray(listings)) {
-    return new Response(JSON.stringify({ error: 'Expected array' }), {
+  const datasetId = payload?.eventData?.defaultDatasetId;
+  if (!datasetId) {
+    return new Response(JSON.stringify({ error: 'No datasetId in webhook payload' }), {
       status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  let listings: ApifyListing[];
+  try {
+    listings = await fetchDatasetItems(datasetId, apifyToken);
+  } catch {
+    return new Response(JSON.stringify({ error: 'Failed to fetch Apify dataset' }), {
+      status: 502,
       headers: { 'Content-Type': 'application/json' },
     });
   }
@@ -61,16 +97,17 @@ export const POST: APIRoute = async ({ request }) => {
   let errors = 0;
 
   for (const item of listings) {
-    if (!item.url) continue;
+    const url = item.url ?? item.listingUrl;
+    if (!url) continue;
     try {
-      const existing = await findListingByUrl(item.url);
+      const existing = await findListingByUrl(url);
       if (existing) {
         await updateLastSeen(existing.id);
         updated++;
       } else {
         await createListing({
           title: item.title ?? item.name ?? 'Rental Listing',
-          url: item.url,
+          url,
           price: parsePrice(item.price),
           bedrooms: parseBedrooms(item.bedrooms),
           location: item.location ?? '',
@@ -78,7 +115,7 @@ export const POST: APIRoute = async ({ request }) => {
         created++;
       }
     } catch (err) {
-      console.error('Error processing listing', item.url, err);
+      console.error('Error processing listing', url, err);
       errors++;
     }
   }
